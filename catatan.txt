@@ -1,0 +1,127 @@
+/** Disini kita ingin membuat operasi CRUD (create, read, update, delete) 
+ * dari sisi front end, udh dideploy di http://notesapp-v1.dicodingacademy.com/
+*/
+
+/** KRITERIA I - DAPAT SIMPAN CATATAN
+ * berikut struktur objek catatan yang perlu disimpan oleh server:
+{
+ id: string,
+ title: string,
+ createdAt: string,
+ updatedAt: string,
+ tags: array of string,
+ body: string,
+},
+ * contohnya:
+{
+ id: 'notes-V1StGXR8_Z5jdHi6B-myT',
+ title: 'Sejarah JavaScript',
+ createdAt: '2020-12-23T23:00:09.686Z',
+ updatedAt: '2020-12-23T23:00:09.686Z',
+ tags: ['NodeJS', 'JavaScript'],
+ body: 'JavaScript pertama kali dikembangkan oleh Brendan Eich dari Netscape di bawah nama Mocha, yang nantinya namanya diganti menjadi LiveScript, dan akhirnya menjadi JavaScript. Navigator sebelumnya telah mendukung Java untuk lebih bisa dimanfaatkan para pemrogram yang non-Java.',
+},
+ * karena tujuannya untuk menyimpan, berarti kita menggunakan POST,
+ * client akan mengirimkan permintaan ke path dan method tersebut dengan membawa data JSON pada request body:
+{
+ "title": "Judul Catatan",
+ "tags": ["Tag 1", "Tag 2"],
+ "body": "Konten catatan"
+}
+ * untuk property id, createdAt, dan updateAt diolah di server,
+ * id harus unik
+ * jika berhasil menyimpan, respons server harus ada status code 201(created) dan mengembalikan data dalam bentuk json
+ * dengan format:
+{
+  "status": "success",
+  "message": "Catatan berhasil ditambahkan",
+  "data": {
+    "noteId": "V09YExygSUYogwWJ"
+  }
+}
+ * nodeID diambil dari properti id dan harus unik juga
+ * jika gagal, balikan status code 500
+{
+  "status": "error",
+  "message": "Catatan gagal untuk ditambahkan"
+}
+*/
+
+/** KRITERIA II - BISA TAMPILIN CATATAN
+ * client melakukan request pada path '/notes' dengan method 'GET'
+ * jika berhasil kembalikan status code 200 dengan data notes dalam bentuk array JSON
+ * contoh:
+{
+  "status": "success",
+  "data": {
+    "notes": [
+      {
+        "id":"notes-V1StGXR8_Z5jdHi6B-myT",
+        "title":"Catatan 1",
+        "createdAt":"2020-12-23T23:00:09.686Z",
+        "updatedAt":"2020-12-23T23:00:09.686Z",
+        "tags":[
+          "Tag 1",
+          "Tag 2"
+        ],
+        "body":"Isi dari catatan 1"
+      },
+      {
+        "id":"notes-V1StGXR8_98apmLk3mm1",
+        "title":"Catatan 2",
+        "createdAt":"2020-12-23T23:00:09.686Z",
+        "updatedAt":"2020-12-23T23:00:09.686Z",
+        "tags":[
+          "Tag 1",
+          "Tag 2"
+        ],
+        "body":"Isi dari catatan 2"
+      }
+    ]
+  }
+}
+ * jika blom ada catatan, kirim array kosong
+ * client juga bisa minta catatan secara spesifik menggunakan id melalui path '/notes/{id}'
+ * 
+ * jika id ga ada, respond dengan status code 404
+{
+  "status": "fail",
+  "message": "Catatan tidak ditemukan"
+}
+ */
+
+/**KRITERIA III - BISA EDIT CATATAN 
+ * client request ke path '/notes/{id}' method 'PUT' dengan data JSON di body request berupa catatan terbaru
+{
+  "title":"Judul Catatan Revisi",
+  "tags":[
+    "Tag 1",
+    "Tag 2"
+  ],
+  "body":"Konten catatan"
+}
+ * jika berhasil kirim status code 200(ok) dan json di body respons
+{
+  "status": "success",
+  "message": "Catatan berhasil diperbaharui"
+}
+ * klo id ga ketemu, balas dengan status code 404 dan data jSON
+{
+  "status": "fail",
+  "message": "Gagal memperbarui catatan. Id catatan tidak ditemukan"
+}
+*/
+
+/** KRITERIA IV -  BISA HAPUS CATATAN
+ * client kirim request ke path '/notes/{id}' methode 'DELETE'
+ * jika berhasil kirim status code 200 dan data JSON:
+{
+  "status": "success",
+  "message": "Catatan berhasil dihapus"
+}
+ * jika gagal, kirim status code 404, dan data json
+{
+  "status": "fail",
+  "message": "Catatan gagal dihapus. Id catatan tidak ditemukan"
+}
+ */
