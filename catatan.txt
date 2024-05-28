@@ -125,3 +125,28 @@
   "message": "Catatan gagal dihapus. Id catatan tidak ditemukan"
 }
  */
+
+ // untuk menggunakan aws (amazon web server) kita harus punya root user,
+ // setelah punya root user, buat IAM users karena root user bisa mengakses apapun
+ // dalam membuat IAM Users, kita perlu create IAM user dan juga user group
+ // setelah itu buka aws menggunakan IAM Users
+ // buat security system dan EC2 instance
+ // setelah EC2 instance dibuat, coba untuk connect menggunakan ssh
+ // jika ada error karena "permission is too open", jalankan command line berikut
+$path = ".\notes-api-webserver.pem"
+# Reset to remove explicit permissions
+icacls.exe $path /reset
+# Give current user explicit read-permission
+icacls.exe $path /GRANT:R "$($env:USERNAME):(R)"
+# Disable inheritance and remove inherited permissions
+icacls.exe $path /inheritance:r
+
+ untuk menggunakan git
+ 1. gunakan command line "git init" -> semua berkas dipantau oleh git
+ 2. untuk mengabaikan berkas tertentu, gunakan .gitignore dan didalamnya tulis nama file atau folder yang tidak ingin dipantau dan diupdate
+ 3. gunakan command line "git add ." untuk memasukkan berkas ke stash
+ 4. kemudian "git commit -m "initial commit" untuk menyimpan perubahan pada local repository
+
+ untuk mengupload file dari local ke remote repository
+ 1. hubungkan ke remote repo github " git remote add origin <remote repository URL>"
+ 2. untuk upload, lakukan push "git push origin master"
