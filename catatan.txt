@@ -153,4 +153,13 @@ icacls.exe $path /inheritance:r
 
  untuk melakukan clone repo ke EC2 instance aws, gunakan command line "git clone <remote repository URL>"
  untuk cek berhasil atau tidak, gunakan command line "ls"
- 
+
+ agar kita tidak perlu menjalankan ulang server setiap kali dibuka, kita bisa pakai process manager untuk membuka server secara otomatis
+ 1. install process manager "npm install -g pm2"
+ 2. jalankan node process menggunakan pm2 yaitu "pm2 start npm --name "notes-api" -- run "start:prod"
+ 3. restart/stop pm2 dlu setelah itu "pm2 <restart/stop> notes-api"
+ 4. untuk jalanin lg "pm2 start notes-api"
+
+ kita bisa jalankan postman tanpa akses apk postman dengan menggunakan newman
+ installnya dengan "npm install newman --g"
+ untuk menjalankannya gunakan command line "newman run <nama file postman collection.json> --environment <nama file postman environment.json>
