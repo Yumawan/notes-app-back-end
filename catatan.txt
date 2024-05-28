@@ -150,3 +150,7 @@ icacls.exe $path /inheritance:r
  untuk mengupload file dari local ke remote repository
  1. hubungkan ke remote repo github " git remote add origin <remote repository URL>"
  2. untuk upload, lakukan push "git push origin master"
+
+ untuk melakukan clone repo ke EC2 instance aws, gunakan command line "git clone <remote repository URL>"
+ untuk cek berhasil atau tidak, gunakan command line "ls"
+ 
